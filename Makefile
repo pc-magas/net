@@ -14,4 +14,4 @@ clean:
 	rm -rf ./net/*.class
 	
 jar: net
-	jar cvfe ${JARNAME}-${VERSION}.jar ./net/*.class
+	jar cvf ${JARNAME}-${VERSION}.jar ./net/*.class ./net/
