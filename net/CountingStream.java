@@ -27,6 +27,9 @@ import java.awt.event.ActionEvent;
 public class CountingStream extends CountingOutputStream 
 {
 
+	/**
+	*The action Listener that "snifs" the chgange of file duting the download 
+	*/
     private ActionListener l = null;
 
 	/**

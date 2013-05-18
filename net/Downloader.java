@@ -18,7 +18,7 @@
 */
 package net;
 
-import net.*;
+import net.CountingStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import java.awt.event.ActionListener;
@@ -40,6 +40,9 @@ import java.security.cert.X509Certificate;
 */
 public class Downloader implements Runnable
 {
+	/**
+	*Class for taking the progress and making into percentage
+	*/
     private class ProgressListener implements ActionListener
     {
         @Override
@@ -54,17 +57,23 @@ public class Downloader implements Runnable
         }
     }
     
+    /**
+    *Class for using ssl
+    */
     private class SSLManager implements X509TrustManager
     {
+    	@Override
     	 public X509Certificate[] getAcceptedIssuers() 
     	 {
                return null;
          }
          
+         @Override
          public void checkClientTrusted(X509Certificate[] certs, String authType) 
          {
          }
          
+         @Override
          public void checkServerTrusted(X509Certificate[] certs, String authType) 
          {
          }
@@ -281,21 +290,33 @@ public class Downloader implements Runnable
         }
 	}
 	
+	/**
+	*Retruns the progress as %
+	*/
 	public float getPercent()
 	{
 		return percent;
 	}
 	
+	/**
+	*Returns the status of Downloaded file
+	*/
 	public String getStatus()
 	{
 		return status;
 	}
 	
+	/**
+	*Returns The size of file in Bytes
+	*/
 	public long getSize()
 	{
 		return total;
 	}
 	
+	/**
+	*Returns the correct mime type of the file
+	*/
 	public String getMime()
 	{
 		return mime;
