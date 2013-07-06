@@ -80,6 +80,26 @@ public class Downloader implements Runnable
 	}
 	
 	/**
+	*Waiting Status
+	*/
+	public static final String WAITING="Waiting";
+	
+	/**
+	*Error Status
+	*/
+	public static final String ERROR="Error";
+	
+	/**
+	*Donwloading Status
+	*/
+	public static final String DOWNLOADING="Downloading";
+	
+	/**
+	*Finished download Status
+	*/
+	public static final String FINISHED="Finished";
+	
+	/**
 	*Shows the total size of file
 	*/
 	private long total=0;
@@ -116,6 +136,15 @@ public class Downloader implements Runnable
 	*/
 	private URLConnection conn=null;
 	
+	/**
+	*Output Stream of downloades file
+	*/
+	private OutputStream os=null;
+	
+	/**
+	*InputStream
+	*/
+	private InputStream is = null;
 	/**
 	*Constructor Method
 	*@param url: The url of the file we want to download from the web
@@ -222,8 +251,8 @@ public class Downloader implements Runnable
 	
 	public void run()
 	{
-        OutputStream os = null;
-        InputStream is = null;
+        os = null;
+        is = null;
 
         ProgressListener progressListener = new ProgressListener();
         try 
@@ -320,5 +349,21 @@ public class Downloader implements Runnable
 	public String getMime()
 	{
 		return mime;
+	}
+	
+	/**
+	*Returns the OutputStream
+	*/
+	public OutputStream getOutputStream()
+	{
+		return os;
+	}
+	
+	/**
+	*Returns ImpurStream
+	*/
+	public InputStream getInputStream()
+	{
+		return is;
 	}
 }
