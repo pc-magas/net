@@ -1,6 +1,6 @@
 CLASSPATH=./commons-io-2.4/commons-io-2.4.jar
 JARNAME=download
-VERSION=1.0
+VERSION=1.0.1
 
 net: Downloader
 
