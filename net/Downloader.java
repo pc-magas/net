@@ -145,6 +145,7 @@ public class Downloader implements Runnable
 	*InputStream
 	*/
 	private InputStream is = null;
+	
 	/**
 	*Constructor Method
 	*@param url: The url of the file we want to download from the web
@@ -156,14 +157,28 @@ public class Downloader implements Runnable
 	}
 	
 	/**
+	*Constructor Method
+	*@param url: The url of the file we want to download from the web
+	*@param path: The path of the file we want to store the file downloaded file. It may dbe different from the name of the file
+	*@param autoStart: we tell if we want to starty automatically thwe download of the file or not set true to start automatically
+	*downloading the file
+	*/
+	public Downloader(String url, String path,boolean  autoStart)
+	{
+		this(url,path,null,(long)0,autoStart);
+	}
+	
+	/**
 	*Constructor Method. You can select allowed mime and upper size limit to download a file.
 	*@param url: The url of the file we want to download from the web
 	*@param path: The path of the file we want to store the file downloaded file. It may dbe different from the name of the file
 	*@param allowedType: The allowed mime types we want to download
 	*@param allowedSize: The  maximum size of downloaded file in <strong>BYTES</strong> that we permit to download for no limit enter<br>
-	*zero or negative valie  
+	*zero or negative value
+	*@param autoStart: we tell if we want to starty automatically thwe download of the file or not set true to start automatically
+	*downloading the file
 	*/
-	public Downloader(String url, String path,String[] allowedType,long allowedSize)
+	public Downloader(String url, String path,String[] allowedType,long allowedSize, boolean  autoStart)
 	{
 		boolean ok=true;
 		//Needed for ssl
@@ -230,8 +245,10 @@ public class Downloader implements Runnable
 			
 			if(ok)
 			{
-				Thread t=new Thread(this);
-				t.start();
+				if(autoStart)
+				{
+					download();
+				}
 			}
 			else
 			{
@@ -248,6 +265,21 @@ public class Downloader implements Runnable
 			m.printStackTrace();
 		}
 	}
+	
+	/**
+	*Constructor Method. You can select allowed mime and upper size limit to download a file.
+	*@param url: The url of the file we want to download from the web
+	*@param path: The path of the file we want to store the file downloaded file. It may dbe different from the name of the file
+	*@param allowedType: The allowed mime types we want to download
+	*@param allowedSize: The  maximum size of downloaded file in <strong>BYTES</strong> that we permit to download for no limit enter<br>
+	*zero or negative value  
+	*/
+	public Downloader(String url, String path,String[] allowedType,long allowedSize)
+	{
+		this(url,path,allowedType,allowedSize,false);
+	}
+	
+	
 	
 	public void run()
 	{
@@ -365,5 +397,18 @@ public class Downloader implements Runnable
 	public InputStream getInputStream()
 	{
 		return is;
+	}
+	
+	/**
+	*Download file
+	*/
+	public void download()
+	{
+		System.out.println("Download");
+		if(!status.equalsIgnoreCase(ERROR))
+		{
+			Thread t=new Thread(this);
+			t.start();
+		}
 	}
 }
